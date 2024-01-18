@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
+	"net/url"
 
 	"github.com/owenrumney/go-github-pr-commenter/commenter"
 )
@@ -75,6 +75,9 @@ func main() {
 			case commenter.CommentAlreadyWrittenError:
 				fmt.Println("Ignoring - comment already written")
 				validCommentWritten = true
+			case commenter.CommentNotValidError:
+				fmt.Println("Ignoring - change not part of the current PR")
+				continue
 			default:
 				errMessages = append(errMessages, err.Error())
 			}
@@ -110,7 +113,7 @@ func createCommenter(token, owner, repo string, prNo int) (*commenter.Commenter,
 		url, err := url.Parse(githubApiUrl)
 		if err == nil {
 			enterpriseUrl := fmt.Sprintf("%s://%s", url.Scheme, url.Hostname())
-			c, err = commenter.NewEnterpriseCommenter(token, enterpriseUrl, enterpriseUrl, owner, repo, prNo)
+			c, err = commenter.NewEnterpriseCommenter(token, enterpriseUrl, enterpriseUrl, owner, repo, prNo)	
 		}
 	}
 
