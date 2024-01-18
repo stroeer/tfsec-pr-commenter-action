@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 echo "* Running in a container"
 
-export GITHUB_REPOSITORY=aquasecurity/tfsec-pr-commenter-action
+export GITHUB_REPOSITORY=stroeer/tfsec-pr-commenter-action
 export GITHUB_WORKSPACE=/github/workspace
 export INPUT_GITHUB_TOKEN=${GITHUB_TOKEN}
 
